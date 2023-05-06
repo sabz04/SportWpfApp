@@ -1,0 +1,51 @@
+﻿<Window x:Class="SportWpfApp.Windows.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportWpfApp.Windows"
+        mc:Ignorable="d"
+        Title="Window1" Height="250" Width="800">
+    <Grid>
+        <Grid             
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="187*"/>
+                <ColumnDefinition Width="498*"/>
+                <ColumnDefinition Width="115*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Column="0"  Source="{Binding Image}" ></Image>
+
+            <StackPanel 
+                Margin="10"
+                Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock Text="Наименование товара" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                <TextBlock >
+                                <Run Text="Производитель: "/>
+                                <Run Text="{Binding ManufacturerId.ManufacturerName}"/>
+                </TextBlock>
+                <TextBlock >
+                                <Run Text="Цена: "/>
+                                <Run Text="{Binding Cost}"/>
+                </TextBlock>
+            </StackPanel>
+
+            <TextBlock
+                FontSize="18"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Grid.Column="2" >
+                            <Run Text="-"/>
+                            <Run Text="{Binding ActualDiscountAmount}"/>
+                            <Run Text="%"/>
+            </TextBlock>
+        </Grid>
+
+    </Grid>
+</Window>

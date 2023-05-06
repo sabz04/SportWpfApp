@@ -1,0 +1,48 @@
+﻿<Window x:Class="SportWpfApp.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportWpfApp.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        MaxHeight="450"
+        MaxWidth="600"
+        MinHeight="350"
+        MinWidth="300"
+        Icon="/Assets/icon.ico"
+        Title="Окно авторизации" Height="350" Width="300">
+    <Grid
+                    Background="{StaticResource PrimaryColor}"
+>
+        
+        <StackPanel
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            >
+            <Image
+                Margin="5"
+                Width="50"
+                Source="/Assets/logo.png"
+                ></Image>
+            <TextBlock>Логин</TextBlock>
+            <TextBox
+                x:Name="loginTextBox"
+                ></TextBox>
+            <TextBlock>Пароль</TextBlock>
+            <TextBox
+                x:Name="passwordTextBox"
+                ></TextBox>
+            <Button
+                
+                x:Name="AuthButton"
+                Click="AuthButton_Click"
+                >Авторизация</Button>
+            <TextBlock
+                x:Name="GuestAuthButton"
+                Foreground="{StaticResource ActionColor}"
+                MouseDown="GuestAuthButton_MouseDown"
+                >Продолжить как гость</TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

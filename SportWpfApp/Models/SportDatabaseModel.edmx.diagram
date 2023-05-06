@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="00966bb5b39b4bee91d39655e40ce5ee" Name="Diagram1">
+        <EntityTypeShape EntityType="SportDBModel.Manufacturer" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.Order" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.OrderProduct" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.OrderStatus" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.PickupPoint" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.Product" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.ProductCategory" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.Role" Width="1.5" PointX="1.5" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.Supplier" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportDBModel.User" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <AssociationConnector Association="SportDBModel.FK_Product_Manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="SportDBModel.FK_Order_OrderStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="SportDBModel.FK_Order_PickupPoint" ManuallyRouted="false" />
+        <AssociationConnector Association="SportDBModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="SportDBModel.FK_OrderProduct_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="SportDBModel.FK_OrderProduct_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="SportDBModel.FK_Product_ProductCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="SportDBModel.FK_Product_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="SportDBModel.FK_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
