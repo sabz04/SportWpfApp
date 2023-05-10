@@ -30,7 +30,12 @@ namespace SportWpfApp.Windows
 
             if(CurrentUser.UserCurrent != null)
             {
-                userCredentialsTextBox.Text = CurrentUser.GetCreds();
+                if (CurrentUser.UserCurrent.Role.RoleName.ToLower().Contains("админ"))
+                { 
+                    ProductAddButton.Visibility =  Visibility.Visible;
+                }
+
+                    userCredentialsTextBox.Text = CurrentUser.GetCreds();
             }
         }
 
@@ -38,6 +43,14 @@ namespace SportWpfApp.Windows
         {
             this.Close();
             LoginWindow.Instance.Show();
+        }
+
+        private void ProductAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+                ProductAddWindow productAddWindow = new ProductAddWindow(); 
+                productAddWindow.Show();
+            
         }
     }
 }

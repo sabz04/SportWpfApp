@@ -35,8 +35,8 @@ namespace SportWpfApp.Windows
             timer.Elapsed += timer_Tick;
             timer.AutoReset = true;
             Instance = this;
-            loginTextBox.Text = "loginDEwgk2018";
-            passwordTextBox.Text = "&mfI9l";
+            loginTextBox.Text = "loginDEpxl2018";
+            passwordTextBox.Text = "P6h4Jq";
             //LoadImage();
         }
 
@@ -70,7 +70,9 @@ namespace SportWpfApp.Windows
         {
             using(var db = new SportDBEntities())
             {
-                var user = db.User.FirstOrDefault(x => x.Login == loginTextBox.Text && x.Password == passwordTextBox.Text);
+                var user = db.User
+                    .Include("Role")
+                    .FirstOrDefault(x => x.Login == loginTextBox.Text && x.Password == passwordTextBox.Text);
                 if (user != null)
                 {
                     CurrentUser.UserCurrent = user;
