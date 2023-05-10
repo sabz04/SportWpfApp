@@ -23,11 +23,17 @@ namespace SportWpfApp.Windows
     public partial class ProductsPage : Page
     {
         String[] orderByPrice = { "По возрастанию", "По убыванию" };
-        String[] orderByDiscount = { "0-9,99%", "10-14,99%", "15% и более" };
+        Product _selectedProd;
+        String[] orderByDiscount = { "Все диапазоны", "0-9,99%", "10-14,99%", "15% и более" };
+
+        bool isClickedLeft = false;
+        public static ProductsPage Current { get; set; }
+
         FilterObject filterObject;
         public ProductsPage()
         {
             InitializeComponent();
+            Current = this;
             filterObject = new FilterObject();
             priceComboBox.ItemsSource = orderByPrice;
             priceComboBox.SelectedIndex = 0;
@@ -39,7 +45,7 @@ namespace SportWpfApp.Windows
               
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             using (var db = new SportDBEntities())
             {
@@ -65,6 +71,10 @@ namespace SportWpfApp.Windows
                 }
                 if (filterObject.Discount != null && filterObject.Discount != String.Empty)
                 {
+                    if (filterObject.Discount.Contains("Все диапазоны")) 
+                    {
+                        products = products.Where(x=> x.ActualDiscountAmount > 0);
+                    }
                     if (filterObject.Discount.Contains("0-9,99%"))
                     {
                         products = products.Where(x => x.ActualDiscountAmount<10 && x.ActualDiscountAmount >0);
@@ -79,9 +89,9 @@ namespace SportWpfApp.Windows
                     }
                 }
 
-
                 var items = products
                     .Include(x=>x.Manufacturer)
+                    .Include(x=>x.ProductCategory)
                     .ToList();
                 ProductsListView.ItemsSource = null;
                 ProductsListView.Items.Clear();
@@ -115,6 +125,61 @@ namespace SportWpfApp.Windows
                 filterObject.Search= searchTextBox.Text;
                 LoadData();
             }
+        }
+
+        private void ProductsListView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (ProductsListView.SelectedItem == null)
+                return;
+            _selectedProd = ProductsListView.SelectedItem as Product;
+            
+            if (isClickedLeft)
+            {
+                if (ProductAddWindow.Current != null)
+                    ProductAddWindow.Current.Close();
+                if (CurrentUser.UserCurrent != null && CurrentUser.UserCurrent.Role.RoleName.ToLower().Contains("админ"))
+                {
+                    var productAddWindow = new ProductAddWindow(_selectedProd);
+                    productAddWindow.Show();
+                }
+            }
+            if (!isClickedLeft)
+            {
+                ProductOrderAddWindow productOrderAddWindow = new ProductOrderAddWindow(_selectedProd);
+                productOrderAddWindow.Show();
+
+
+            }
+            ProductsListView.SelectedItem = null;
+
+
+        }
+
+        private void ProductsListView_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void ProductsListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                isClickedLeft= false;
+
+
+                
+            }
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                isClickedLeft = true;
+                
+            }
+            
         }
     }
 

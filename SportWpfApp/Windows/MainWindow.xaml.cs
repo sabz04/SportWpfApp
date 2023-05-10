@@ -26,16 +26,13 @@ namespace SportWpfApp.Windows
             InitializeComponent();
             MainFrame.Navigate(new ProductsPage());
 
-          
-
             if(CurrentUser.UserCurrent != null)
             {
                 if (CurrentUser.UserCurrent.Role.RoleName.ToLower().Contains("админ"))
                 { 
                     ProductAddButton.Visibility =  Visibility.Visible;
                 }
-
-                    userCredentialsTextBox.Text = CurrentUser.GetCreds();
+                userCredentialsTextBox.Text = CurrentUser.GetCreds();
             }
         }
 
@@ -47,9 +44,10 @@ namespace SportWpfApp.Windows
 
         private void ProductAddButton_Click(object sender, RoutedEventArgs e)
         {
-            
-                ProductAddWindow productAddWindow = new ProductAddWindow(); 
-                productAddWindow.Show();
+            if (ProductAddWindow.Current != null)
+                ProductAddWindow.Current.Close();
+            ProductAddWindow productAddWindow = new ProductAddWindow(); 
+            productAddWindow.Show();
             
         }
     }

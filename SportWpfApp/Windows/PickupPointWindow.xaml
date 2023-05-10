@@ -1,0 +1,28 @@
+﻿<Window x:Class="SportWpfApp.Windows.PickupPointWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportWpfApp.Windows"
+        mc:Ignorable="d"
+        Icon="/Assets/icon.ico"
+        MinHeight="300"
+        MinWidth="200"
+        WindowStartupLocation="CenterScreen"
+        MaxHeight="400"
+        MaxWidth="500"
+        Title="Пункт выдачи" Height="200" Width="300">
+    <Grid>
+        <StackPanel
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            >
+            <TextBlock
+                >Выберите пункт выдачи</TextBlock>
+            <ComboBox
+                SelectionChanged="pickupPointsComboBox_SelectionChanged"
+                x:Name="pickupPointsComboBox"
+                ></ComboBox>
+        </StackPanel>
+    </Grid>
+</Window>

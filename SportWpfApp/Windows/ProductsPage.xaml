@@ -70,11 +70,16 @@
         </Grid>
         <ListView  
             Grid.Row="1"
+            PreviewMouseDown="ProductsListView_PreviewMouseDown"
+            MouseDown="ProductsListView_MouseDown"
+            SelectionChanged="ProductsListView_SelectionChanged"
             x:Name="ProductsListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid    
-                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    <Grid  
+                        MouseDown="Grid_MouseDown"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"
                         >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="187*"/>

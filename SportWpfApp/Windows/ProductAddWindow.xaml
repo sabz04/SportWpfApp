@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Icon="/Assets/icon.ico"
         Title="Добавление нового товара" 
-        Height="800" Width="500">
+        Height="900" Width="500">
     <Grid>
         <StackPanel
             VerticalAlignment="Center"
@@ -23,7 +23,10 @@
                 x:Name="nameTextBox"
                 
                 ></TextBox>
-            <TextBlock>Описание</TextBlock>
+            <TextBlock
+                MaxWidth="200"
+                TextWrapping="Wrap"
+                >Описание</TextBlock>
             <TextBox
                 x:Name="descTextBox"
                 
@@ -72,6 +75,11 @@
                 Click="saveChangesButton_Click"
                 x:Name="saveChangesButton"
                 >Сохранить</Button>
+            <Button
+                Visibility="Collapsed"
+                Click="deleteButton_Click"
+                x:Name="deleteButton"
+                >Удалить</Button>
         </StackPanel>
     </Grid>
 </Window>

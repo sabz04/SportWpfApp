@@ -72,15 +72,16 @@ namespace SportWpfApp.Windows
             {
                 var user = db.User
                     .Include("Role")
+                    .Include("Order")
                     .FirstOrDefault(x => x.Login == loginTextBox.Text && x.Password == passwordTextBox.Text);
                 if (user != null)
                 {
                     CurrentUser.UserCurrent = user;
                     MessageBox.Show("Авторизация успешна");
                     this.Hide();
-                    MainWindow main= new MainWindow();
-                    
-                    main.Show();
+                    PickupPointWindow pickupPointWindow = new PickupPointWindow();
+                    pickupPointWindow.Show();
+
                 }
                 else
                 {
@@ -109,8 +110,9 @@ namespace SportWpfApp.Windows
         private void GuestAuthButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CurrentUser.UserCurrent = null;
-            MainWindow main = new MainWindow(); 
-            main.Show();
+            PickupPointWindow pickupPointWindow = new PickupPointWindow();
+            pickupPointWindow.Show();
+            this.Hide();
         }
 
         void timer_Tick(object sender, ElapsedEventArgs e)

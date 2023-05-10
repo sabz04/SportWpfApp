@@ -10,6 +10,10 @@ namespace SportWpfApp.Models
     {
         public static User UserCurrent { get; set; }
 
+        public static int PickupPointId { get; set; }
+
+        public static Order CurrentOrder { get; set; }
+
         public static String GetCreds()
         {
             return $"{UserCurrent.Name} {UserCurrent.Patronymic} {UserCurrent.Surname}  ";

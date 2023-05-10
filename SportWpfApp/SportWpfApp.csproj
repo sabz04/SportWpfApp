@@ -126,8 +126,14 @@
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PickupPointWindow.xaml.cs">
+      <DependentUpon>PickupPointWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProductAddWindow.xaml.cs">
       <DependentUpon>ProductAddWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProductOrderAddWindow.xaml.cs">
+      <DependentUpon>ProductOrderAddWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ProductsPage.xaml.cs">
       <DependentUpon>ProductsPage.xaml</DependentUpon>
@@ -147,7 +153,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\PickupPointWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ProductAddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProductOrderAddWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
