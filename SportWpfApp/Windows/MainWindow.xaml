@@ -50,13 +50,21 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Click="ProductAddButton_Click"/>
-        <TextBlock
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+        <WrapPanel
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Grid.Column="2" 
+            >
+            <TextBlock           
                 TextWrapping="Wrap"
                 x:Name="userCredentialsTextBox"
-                Grid.Column="2" 
                 ></TextBlock>
+            <Button
+                Visibility="Collapsed"
+                x:Name="orderButton"
+                >Заказ</Button>
+        </WrapPanel>
+        
         
         
         <Frame x:Name="MainFrame" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" >

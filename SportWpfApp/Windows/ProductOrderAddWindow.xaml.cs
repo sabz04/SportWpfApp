@@ -34,10 +34,16 @@ namespace SportWpfApp.Windows
         {
             using (var db = new SportDBEntities())
             {
-                if (CurrentUser.UserCurrent != null)
-            {
-                if(CurrentUser.UserCurrent.Order.Count < 1)
+                var prod = db.Product.FirstOrDefault(x => x.Id == _selectedProd.Id);
+                if (prod == null || prod.StockQuanitity < 1)
                 {
+                    MessageBox.Show("Такого товара не существует, либо он закончился.");
+                    return;
+                }
+                if (CurrentUser.UserCurrent != null)
+                {
+                    if (CurrentUser.UserCurrent.Order.Count < 1)
+                    {
                         var newOrder = new Order
                         {
                             OrderDate = DateTime.Now,
@@ -46,40 +52,39 @@ namespace SportWpfApp.Windows
                             UserId = CurrentUser.UserCurrent.Id,
                             PickupPointId = CurrentUser.PickupPointId,
                         };
+
                         db.Order.Add(newOrder);
-                        OrderProduct orderProduct = new OrderProduct
+
+                        var orderProduct = new OrderProduct
                         {
                             Count = 1,
                             OrderId = newOrder.Id,
                             ProductId = _selectedProd.Id
                         };
-                        
+
                         db.OrderProduct.Add(orderProduct);
                         db.SaveChanges();
 
-                        CurrentUser.UserCurrent = db.User.FirstOrDefault(x=>x.Id== CurrentUser.UserCurrent.Id);
+                        CurrentUser.UserCurrent = db.User.FirstOrDefault(x => x.Id == CurrentUser.UserCurrent.Id);
+
                         MessageBox.Show($"Товар {_selectedProd.Name} был добавлен к заказу");
                     }
-                else
-                {
+                    else
+                    {
                         var currentOrder = CurrentUser.UserCurrent.Order.FirstOrDefault();
                         var ord = db.Order.FirstOrDefault(x => x.Id == currentOrder.Id);
+
                         if (ord != null)
                         {
                             int? totalCount = 0;
+
                             if (ord.OrderProduct.Any(x => x.Product.Id == _selectedProd.Id))
                             {
-                                foreach (var item in ord.OrderProduct)
-                                {
-                                    if (item.Product.Id == _selectedProd.Id)
-                                    {
-                                        item.Count++;
-                                        totalCount = item.Count;
-                                        break;
-                                    }
-                                }
-                                MessageBox.Show($"Товар {_selectedProd.Name} уже был добавлен к заказу, количество: {totalCount}");
+                                var item = ord.OrderProduct.FirstOrDefault(x => x.Product.Id == _selectedProd.Id);
+                                item.Count++;
+                                totalCount = item.Count;
 
+                                MessageBox.Show($"Товар {_selectedProd.Name} уже был добавлен к заказу, количество: {totalCount}");
                             }
                             else
                             {
@@ -92,24 +97,26 @@ namespace SportWpfApp.Windows
 
                                 MessageBox.Show($"Товар {_selectedProd.Name} добавлен к заказу");
                             }
-                            db.SaveChanges();
+
+                            
                         }
                     }
-            }
-            else
-            {
-                if(CurrentUser.CurrentOrder == null)
-                {
                     
-                    var ord = new Order
+                        
+                }
+                else
+                {
+                    if (CurrentUser.CurrentOrder == null)
                     {
-                        OrderDate = DateTime.Now,
-                        StatusId = 1,
-                        OrderGetCode = GenCode(),
+                        var ord = new Order
+                        {
+                            OrderDate = DateTime.Now,
+                            StatusId = 1,
+                            OrderGetCode = GenCode(),
+                            PickupPointId = CurrentUser.PickupPointId,
+                        };
 
-                        PickupPointId = CurrentUser.PickupPointId,
-                    };
-                        OrderProduct orderProduct = new OrderProduct
+                        var orderProduct = new OrderProduct
                         {
                             Count = 1,
                             OrderId = ord.Id,
@@ -119,31 +126,27 @@ namespace SportWpfApp.Windows
                         db.Order.Add(ord);
                         db.OrderProduct.Add(orderProduct);
                         db.SaveChanges();
-                        
+
                         MessageBox.Show($"Заказ успешно создан! Товар {_selectedProd.Name} добавлен к новому заказу!");
                         db.SaveChanges();
-                        CurrentUser.CurrentOrder = ord;
 
+                        CurrentUser.CurrentOrder = ord;
                     }
-                else
-                {
-                    var ord = db.Order.FirstOrDefault(x=>x.Id == CurrentUser.CurrentOrder.Id);
-                    if (ord != null)
+                    else
                     {
+                        var ord = db.Order.FirstOrDefault(x => x.Id == CurrentUser.CurrentOrder.Id);
+
+                        if (ord != null)
+                        {
                             int? totalCount = 0;
-                            if(ord.OrderProduct.Any(x=>x.Product.Id == _selectedProd.Id))
+
+                            if (ord.OrderProduct.Any(x => x.Product.Id == _selectedProd.Id))
                             {
-                                foreach (var item in ord.OrderProduct)
-                                {
-                                    if (item.Product.Id == _selectedProd.Id)
-                                    {
-                                        item.Count++;
-                                        totalCount = item.Count;
-                                        break;
-                                    }
-                                }
+                                var item = ord.OrderProduct.FirstOrDefault(x => x.Product.Id == _selectedProd.Id);
+                                item.Count++;
+                                totalCount = item.Count;
+
                                 MessageBox.Show($"Товар {_selectedProd.Name} уже был добавлен к заказу, количество: {totalCount}");
-                                
                             }
                             else
                             {
@@ -153,20 +156,24 @@ namespace SportWpfApp.Windows
                                     ProductId = _selectedProd.Id,
                                     Count = 1
                                 });
-                                
+
                                 MessageBox.Show($"Товар {_selectedProd.Name} добавлен к заказу");
                             }
+
                             db.SaveChanges();
                         }
+                    }
                 }
+                prod.StockQuanitity--;
+                db.SaveChanges();
             }
-            }
+            MainWindow.Instance.CheckUserOrders();
             this.Close();
         }
         private int GenCode()
         {
             Random rnd = new Random();
-            return rnd.Next(0, 999);
+            return rnd.Next(100, 999);
         }
     }
 }

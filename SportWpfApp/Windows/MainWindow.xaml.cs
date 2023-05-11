@@ -20,13 +20,17 @@ namespace SportWpfApp.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow Instance { get; set; }
        
         public MainWindow()
         {
             InitializeComponent();
+            Instance= this;
             MainFrame.Navigate(new ProductsPage());
+            orderButton.Click += OrderButton_Click;
 
-            if(CurrentUser.UserCurrent != null)
+            CheckUserOrders();
+            if (CurrentUser.UserCurrent != null)
             {
                 if (CurrentUser.UserCurrent.Role.RoleName.ToLower().Contains("админ"))
                 { 
@@ -34,6 +38,11 @@ namespace SportWpfApp.Windows
                 }
                 userCredentialsTextBox.Text = CurrentUser.GetCreds();
             }
+        }
+
+        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new OrderPage());    
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -49,6 +58,34 @@ namespace SportWpfApp.Windows
             ProductAddWindow productAddWindow = new ProductAddWindow(); 
             productAddWindow.Show();
             
+        }
+        public void CheckUserOrders()
+        {
+            using (var db = new SportDBEntities()) {
+                if(CurrentUser.UserCurrent != null)
+                {
+                    var user = db.User.Include("Order").FirstOrDefault(x => x.Id == CurrentUser.UserCurrent.Id);
+                    if(user.Order.FirstOrDefault().OrderProduct.Count> 0)
+                    {
+                        orderButton.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        orderButton.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    if(CurrentUser.CurrentOrder != null)
+                    {
+                        var orderProds = db.OrderProduct.Where(x => x.OrderId == CurrentUser.CurrentOrder.Id);
+                        if(orderProds.Count() > 0)
+                        {
+                            orderButton.Visibility = Visibility.Visible;
+                        }
+                    }
+                }
+            }
         }
     }
 }
