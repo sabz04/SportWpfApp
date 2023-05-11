@@ -35,6 +35,12 @@ namespace SportWpfApp.Windows
                 if (CurrentUser.UserCurrent.Role.RoleName.ToLower().Contains("админ"))
                 { 
                     ProductAddButton.Visibility =  Visibility.Visible;
+                    ShowOrdersButton.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ProductAddButton.Visibility = Visibility.Hidden;
+                    ShowOrdersButton.Visibility = Visibility.Visible;
                 }
                 userCredentialsTextBox.Text = CurrentUser.GetCreds();
             }
@@ -65,13 +71,16 @@ namespace SportWpfApp.Windows
                 if(CurrentUser.UserCurrent != null)
                 {
                     var user = db.User.Include("Order").FirstOrDefault(x => x.Id == CurrentUser.UserCurrent.Id);
-                    if(user.Order.FirstOrDefault().OrderProduct.Count> 0)
+                    if (user.Order.Count != 0)
                     {
-                        orderButton.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        orderButton.Visibility = Visibility.Collapsed;
+                        if (user.Order.FirstOrDefault().OrderProduct.Count > 0)
+                        {
+                            orderButton.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            orderButton.Visibility = Visibility.Collapsed;
+                        }
                     }
                 }
                 else
@@ -86,6 +95,18 @@ namespace SportWpfApp.Windows
                     }
                 }
             }
+        }
+
+        private void ShowOrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new OrdersListPage());
+
+            ShowProductsButton.Visibility = Visibility.Visible;
+        }
+
+        private void ShowProductsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new ProductsPage());
         }
     }
 }

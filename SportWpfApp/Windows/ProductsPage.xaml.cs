@@ -39,10 +39,6 @@ namespace SportWpfApp.Windows
             priceComboBox.SelectedIndex = 0;
             discountComboBox.ItemsSource = orderByDiscount;
             discountComboBox.SelectedIndex = 0;
-
-            
-
-              
         }
 
         public void LoadData()
@@ -152,16 +148,6 @@ namespace SportWpfApp.Windows
             }
             ProductsListView.SelectedItem = null;
 
-
-        }
-
-        private void ProductsListView_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
 
         }
 

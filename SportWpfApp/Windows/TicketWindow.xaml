@@ -6,15 +6,19 @@
         xmlns:local="clr-namespace:SportWpfApp.Windows"
         mc:Ignorable="d"
         Icon="/Assets/icon.ico"
-        MaxHeight="600"
+        MaxHeight="700"
         MaxWidth="700"
         MinHeight="400"
         MinWidth="300"
-        Title="Талон заказа" Height="800" Width="300">
+        Title="Талон заказа" Height="600" Width="300">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="44*"/>
+        </Grid.ColumnDefinitions>
         <StackPanel
             VerticalAlignment="Center"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="84,0,0,0"
             >
             <TextBlock>Дата заказа</TextBlock>
             <TextBlock
@@ -51,7 +55,7 @@
                 x:Name="orderCodeTextBlock"
                 ></TextBlock>
             <Button
-                x:Name="getPDFButton"
+                x:Name="getPDFButton" Click="getPDFButton_Click"
                 >Получить в PDF</Button>
         </StackPanel>
     </Grid>

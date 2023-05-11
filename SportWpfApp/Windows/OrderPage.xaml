@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SportWpfApp.Windows"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="OrderPage">
+      Title="Страница заказа">
 
     <Grid>
         <Grid.RowDefinitions>
