@@ -42,14 +42,27 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Click="BackButton_Click"/>
-        <Button 
+        <WrapPanel
             Grid.Column="1"
-            x:Name="ProductAddButton"
-            Content="Добавить товар" 
-            Visibility="Collapsed"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Click="ProductAddButton_Click"/>
+            VerticalAlignment="Center">
+            <Button 
+                x:Name="ProductAddButton"
+                Content="Добавить товар" 
+                Visibility="Collapsed"
+                Click="ProductAddButton_Click"/>
+            <Button 
+                x:Name="ShowOrdersButton"
+                Content="Все заказы" 
+                Visibility="Collapsed"
+                Click="ShowOrdersButton_Click"/>
+            <Button 
+                x:Name="ShowProductsButton"
+                Content="Все товары" 
+                Visibility="Collapsed"
+                Click="ShowProductsButton_Click"/>
+        </WrapPanel>
+
         <WrapPanel
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
